@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
 
         if line:
             frag = line.split()
-            command_name = frag[0].lower()
+            command_name = frag[0]
             command_args = ' '.join(frag[1:])
             if command_name in command_map:
                 return command_map[command_name](command_args)
