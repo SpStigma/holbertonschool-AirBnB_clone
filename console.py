@@ -20,6 +20,10 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbtn) "
 
     def do_quit(self, args):
+        """
+        Exit the console.
+        Syntax: quit
+        """
         return True
 
     def do_EOF(self, args):
@@ -46,8 +50,6 @@ class HBNBCommand(cmd.Cmd):
             command_args = ' '.join(frag[1:])
             if command_name in command_map:
                 return command_map[command_name](command_args)
-            else:
-                print(f"Command not found: {command_name}")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
