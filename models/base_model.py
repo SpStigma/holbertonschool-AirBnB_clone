@@ -24,9 +24,22 @@ class BaseModel:
         to_dict(): Converts the BaseModel instance to a dictionary
         representation.
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Initializes a new instance of BaseModel.
+
+        If keyword arguments are provided, the attributes of the instance
+        will be set based on the provided values. If the 'created_at' or
+        'updated_at' attributes are included in the kwargs, they should be
+        provided in the format: "%Y-%m-%dT%H:%M:%S.%f".
+
+        If no keyword arguments are provided, a new unique identifier will
+        be generated using UUID4, and the 'created_at' and 'updated_at'
+        attributes will be set to the current date and time.
+
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
 
         Attributes:
             id (str): A unique identifier generated using UUID4.
@@ -35,9 +48,16 @@ class BaseModel:
             updated_at (datetime): The date and time when the instance was
             last updated (initialized to the creation time).
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, val in kwargs.items():
+                if key != '__class__':
+                    if key in ['created_at', 'update_at']:
+                        val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
+                setattr(self, key, val)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """
