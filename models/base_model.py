@@ -48,10 +48,10 @@ class BaseModel:
             updated_at (datetime): The date and time when the instance was
             last updated (initialized to the creation time).
         """
-        if kwargs:
+        if kwargs is not None:
             for key, val in kwargs.items():
                 if key != '__class__':
-                    if key in ['created_at', 'update_at']:
+                    if key in ['created_at', 'updated_at']:
                         val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
                 setattr(self, key, val)
         else:
