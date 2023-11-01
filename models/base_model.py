@@ -3,6 +3,7 @@
 """ module base_module"""
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -54,6 +55,7 @@ class BaseModel:
                     if key in ['created_at', 'updated_at']:
                         val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, key, val)
+                storage.new(self)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -77,6 +79,7 @@ class BaseModel:
             datetime: The updated date and time in 'datetime' format.
         """
         self.updated_at = datetime.now()
+        storage.save()
         return self.updated_at
 
     def to_dict(self):
