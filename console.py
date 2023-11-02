@@ -74,13 +74,14 @@ class HBNBCommand(cmd.Cmd):
 
         frag = arg.split()
 
+        if frag[0] not in globals():
+            print("** class doesn't exist **")
+            return
+
         if len(frag) != 2:
             print("** instance id missing **")
             return
 
-        if frag[0] not in globals():
-            print("** class doesn't exist **")
-            return
 
         instance = f"{frag[0]}.{frag[1]}"
 
