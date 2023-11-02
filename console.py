@@ -14,6 +14,12 @@ Available commands:
 """
 import cmd
 import sys
+import json
+import uuid
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+
+storage = FileStorage()
 
 
 class HBNBCommand(cmd.Cmd):
@@ -21,8 +27,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, args):
         """
-        Exit the console.
-        Syntax: quit
+        Quit command to exit the program
+
         """
         return True
 
@@ -34,22 +40,69 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
-    def help_quit(self):
-        print("Quit command to exit the program\n")
+    def do_create(self, arg):
+        """
+        create a new_instance
+        syntax: create ClassName
+        """
+        if not arg:
+            print("** class name missing **")
+            return
+
+        if arg not in globals():
+            print("** class doesn't exist **")
+            return
+
+        classe = globals()[arg]
+        add_instance = classe()
+
+        storage.save()
+
+        print(add_instance.id)
+
+
+    def do_show(self, args):
+        """
+        Display the details of an instance.
+        Syntax: show ClassName ID
+        """
+        if not args:
+            print("** class name missing **")
+            return
+
+        frag = args.split()
+
+        if len(frag) != 2:
+            print("** instance id missing **")
+            return
+
+        if frag[0] not in globals():
+            print("** class doesn't exist **")
+            return
+
+        instance = f"{frag[0]}.{frag[1]}"
+
+        if instance not in storage.all():
+            print("** no instance found **")
+            return
+
+        print(storage.all()[instance])
 
     def onecmd(self, line):
-        command_map = {
+        commands = {
             'quit': self.do_quit,
             'eof': self.do_EOF,
-            'help': self.do_help
+            'help': self.do_help,
+            'create': self.do_create,
+            'show': self.do_show
         }
 
         if line:
             frag = line.split()
             command_name = frag[0]
             command_args = ' '.join(frag[1:])
-            if command_name in command_map:
-                return command_map[command_name](command_args)
+            if command_name in commands:
+                return commands[command_name](command_args)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
