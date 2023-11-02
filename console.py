@@ -13,11 +13,11 @@ Available commands:
 - help: Display help for other commands
 """
 import cmd
-import sys
-import json
-import uuid
-from models.base_model import BaseModel
+
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
+from models.user import User
+
 
 storage = FileStorage()
 
