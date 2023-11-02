@@ -31,14 +31,14 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-    def do_quit(self, args):
+    def do_quit(self, arg):
         """
         Quit command to exit the program
 
         """
         return True
 
-    def do_EOF(self, args):
+    def do_EOF(self, arg):
         """
         Exit the console (EOF).
         Syntax: EOF
@@ -67,16 +67,16 @@ class HBNBCommand(cmd.Cmd):
         print(add_instance.id)
 
 
-    def do_show(self, args):
+    def do_show(self, arg):
         """
         Display the details of an instance.
         Syntax: show ClassName ID
         """
-        if not args:
+        if not arg:
             print("** class name missing **")
             return
 
-        frag = args.split()
+        frag = arg.split()
 
         if len(frag) != 2:
             print("** instance id missing **")
@@ -94,16 +94,16 @@ class HBNBCommand(cmd.Cmd):
 
         print(storage.all()[instance])
 
-    def do_destroy(self, args):
+    def do_destroy(self, arg):
         """
         Delete an instance and save the json file
         syntax: destroy ClassName ID
         """
-        if not args:
+        if not arg:
             print("** class name missing **")
             return
 
-        frag = args.split()
+        frag = arg.split()
 
         if frag[0] not in globals():
             print("** class doesn't exist **")
@@ -131,6 +131,7 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print([str(storage.all()[id]) for id in storage.all()])
             return
+
         if arg not in globals():
             print("** class doesn't exist **")
             return
