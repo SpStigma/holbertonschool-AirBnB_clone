@@ -26,21 +26,15 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbtn) "
 
     def emptyline(self):
-        """
-        if no arg, do nothing
-        """
+        """A method to handle an empty command (which is ignored)"""
         pass
 
     def do_quit(self, arg):
-        """Quit command to exit the program
-        """
+        """quit command, to exit the program"""
         return True
 
     def do_EOF(self, arg):
-        """
-        Exit the console (EOF).
-        Syntax: EOF
-        """
+        """Recognizes EOF and exits the program"""
         return True
 
     def do_create(self, arg):
