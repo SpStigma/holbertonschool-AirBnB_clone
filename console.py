@@ -23,6 +23,11 @@ storage = FileStorage()
 
 
 class HBNBCommand(cmd.Cmd):
+    """
+    The HBNBCommand class defining the commands and functionalities of
+    the custom command interpreter.
+    Use "help" to get a list of the commands.
+    """
     prompt = "(hbtn) "
 
     def emptyline(self):
