@@ -25,6 +25,12 @@ storage = FileStorage()
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbtn) "
 
+    def emptyline(self):
+        """
+        if no arg, do nothing
+        """
+        pass
+
     def do_quit(self, args):
         """
         Quit command to exit the program
@@ -88,21 +94,87 @@ class HBNBCommand(cmd.Cmd):
 
         print(storage.all()[instance])
 
-    def onecmd(self, line):
-        commands = {
-            'quit': self.do_quit,
-            'eof': self.do_EOF,
-            'help': self.do_help,
-            'create': self.do_create,
-            'show': self.do_show
-        }
+    def do_destroy(self, args):
+        """
+        Delete an instance and save the json file
+        syntax: destroy ClassName ID
+        """
+        if not args:
+            print("** class name missing **")
+            return
 
-        if line:
-            frag = line.split()
-            command_name = frag[0]
-            command_args = ' '.join(frag[1:])
-            if command_name in commands:
-                return commands[command_name](command_args)
+        frag = args.split()
+
+        if frag[0] not in globals():
+            print("** class doesn't exist **")
+            return
+
+        if len(frag) != 2:
+            print("** instance id missing ** ")
+            return
+
+        instance = f"{frag[0]}.{frag[1]}"
+        if instance not in storage.all():
+            print("** no instance found **")
+            return
+
+        del storage.all()[instance]
+        storage.save()
+
+    def do_all(self, arg):
+        """
+        print all instance in string representation
+
+        all BaseModel
+        all
+        """
+        if not arg:
+            print([str(storage.all()[id]) for id in storage.all()])
+            return
+        if arg not in globals():
+            print("** class doesn't exist **")
+            return
+
+        instances = []
+
+        for instance in storage.all():
+            if arg in instance:
+                instances.append(str(storage.all()[instance]))
+
+        print(instances)
+
+    def do_update(self, arg):
+        """
+        update a instance attribute by ID and ClassName
+        update <class name> <id> <attribute name> "<attribute value>"
+        """
+        if not arg:
+            print("** class name missing **")
+            return
+
+        if len(arg) < 2:
+            print("** instance id missing **")
+            return
+
+        if len(arg) < 3:
+            print("** attribute name missing **")
+            return
+
+        if len(arg) < 4:
+            print("** value missing **")
+            return
+
+        frag = arg.split()
+
+        instance = f"{frag[0]}.{frag[1]}"
+
+        if not instance in storage.all():
+            print("** no instance found **")
+            return
+
+        setattr(storage.all()[instance], frag[2], frag[3])
+        storage.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
