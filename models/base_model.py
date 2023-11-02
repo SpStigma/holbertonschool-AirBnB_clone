@@ -70,7 +70,8 @@ class BaseModel:
             str: A formatted string indicating the class name, id, and the
             instance's dictionary representation.
         """
-        return f"[BaseModel] ({self.id}) {self.__dict__})"
+        class_name = self.__class__.__name__
+        return f"[{class_name}] ({self.id}) {self.__dict__})"
 
     def save(self):
         """
