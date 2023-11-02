@@ -43,7 +43,6 @@ class HBNBCommand(cmd.Cmd):
         Exit the console (EOF).
         Syntax: EOF
         """
-        print()
         return True
 
     def do_create(self, arg):
