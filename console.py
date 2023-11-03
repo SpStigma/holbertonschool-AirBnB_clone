@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
     the custom command interpreter.
     Use "help" to get a list of the commands.
     """
-    prompt = "(hbtn) "
+    prompt = "(hbnb) "
 
     def emptyline(self):
         """A method to handle an empty command (which is ignored)"""
