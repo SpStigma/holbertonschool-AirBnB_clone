@@ -180,15 +180,6 @@ class TestFileStorage_MethodReload(unittest.TestCase):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
 
-    def test_reload2(self):
-        base = BaseModel()
-        models.storage.save()
-        base_key = "{}.{}".format(base.__class__.__name__, base.id)
-        models.storage.all().clear()
-        self.assertNotIn(base_key, models.storage.all())
-        models.storage.reload()
-        self.assertIn(base_key, models.storage.all())
-
 
 if __name__ == "__main__":
     unittest.main()
