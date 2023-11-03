@@ -112,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         if len(frag) != 2:
-            print("** instance id missing ** ")
+            print("** instance id missing **")
             return
 
         instance = f"{frag[0]}.{frag[1]}"
@@ -153,6 +153,10 @@ class HBNBCommand(cmd.Cmd):
         """
         if not arg:
             print("** class name missing **")
+            return
+
+        if arg not in globals():
+            print("** class doesn't exist **")
             return
 
         if len(arg) < 2:
