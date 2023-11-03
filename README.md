@@ -38,11 +38,11 @@ General
 #### Syntax:
 - cmd help: help or help cmd
 - cmd quit: quit
-- cmd create: create ClassName
-- cmd show: show ClassName ID (copy/paste)
-- cmd destroy: destroy ClassName ID (copy/paste)
-- cmd all: all 'OR' all ClassName
-- cmd update: update ClassName attribute attributevalue
+- cmd create: create <class name>
+- cmd show: show <class name> <id> (copy/paste)
+- cmd destroy: destroy <class name> <id> (copy/paste)
+- cmd all: all 'OR' all <class name>
+- cmd update: update <class name> <id> <attribute name> "<attribute value>"
 
 ## Examples and testing
 ### help
