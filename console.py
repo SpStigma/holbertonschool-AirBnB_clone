@@ -167,7 +167,7 @@ class HBNBCommand(cmd.Cmd):
 
         instance = f"{frag[0]}.{frag[1]}"
 
-        if not instance in storage.all():
+        if instance not in storage.all():
             print("** no instance found **")
             return
 
