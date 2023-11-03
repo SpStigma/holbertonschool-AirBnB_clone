@@ -161,7 +161,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        if len(arg) < 2:
+        if len(frag) < 2:
             print("** instance id missing **")
             return
 
@@ -171,11 +171,11 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
-        if len(arg) < 3:
+        if len(frag) < 3:
             print("** attribute name missing **")
             return
 
-        if len(arg) < 4:
+        if len(frag) < 4:
             print("** value missing **")
             return
 
