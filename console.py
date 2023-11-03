@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """
-This script creates a simple interactive console (REPL) for the HBNB application.
+This script creates a simple interactive console (REPL)
+for the HBNB application.
 Users can enter commands to interact with the application.
 Available commands include 'quit' to exit, 'help' to display help,
 and 'EOF' to exit (typically triggered by Ctrl-D).
 
-To use the console, run the script, and then enter commands at the '(hbtn)' prompt.
+To use the console, run the script, and then enter commands at the
+'(hbtn)' prompt.
 
 Available commands:
 - quit: Exit the console
@@ -67,7 +69,6 @@ class HBNBCommand(cmd.Cmd):
 
         print(add_instance.id)
 
-
     def do_show(self, arg):
         """
         Display the details of an instance.
@@ -86,7 +87,6 @@ class HBNBCommand(cmd.Cmd):
         if len(frag) != 2:
             print("** instance id missing **")
             return
-
 
         instance = f"{frag[0]}.{frag[1]}"
 
@@ -178,7 +178,6 @@ class HBNBCommand(cmd.Cmd):
         if len(frag) < 4:
             print("** value missing **")
             return
-
 
         setattr(storage.all()[instance], frag[2], frag[3])
         storage.save()
