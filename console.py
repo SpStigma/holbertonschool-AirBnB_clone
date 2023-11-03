@@ -155,12 +155,20 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if arg not in globals():
+        frag = arg.split()
+
+        if frag[0] not in globals():
             print("** class doesn't exist **")
             return
 
         if len(arg) < 2:
             print("** instance id missing **")
+            return
+
+        instance = f"{frag[0]}.{frag[1]}"
+
+        if not instance in storage.all():
+            print("** no instance found **")
             return
 
         if len(arg) < 3:
@@ -171,13 +179,6 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        frag = arg.split()
-
-        instance = f"{frag[0]}.{frag[1]}"
-
-        if not instance in storage.all():
-            print("** no instance found **")
-            return
 
         setattr(storage.all()[instance], frag[2], frag[3])
         storage.save()
